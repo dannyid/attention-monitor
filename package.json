@@ -1,0 +1,16 @@
+{
+  "name": "attention-monitor",
+  "version": "0.1.0",
+  "description": "See how much time you spend on various websites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dannyid",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.1.11",
+    "gulp": "^3.8.11",
+    "react": "^0.13.2"
+  }
+}

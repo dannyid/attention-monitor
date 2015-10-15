@@ -34,9 +34,6 @@ var paths = {
     background: [
       './src/js/background.js'
     ],
-    contentScript: [
-      './src/js/contentScript.js'
-    ],
     modules: [
       './src/js/modules/**/*.js'
     ],
@@ -50,8 +47,7 @@ var paths = {
     html: './dist/html',
     img: './dist/img',
     js: './dist/js',
-    background: './dist/js/background.js',
-    contentScript: './dist/js/contentScript.js'
+    background: './dist/js/background.js'
   }
 };
 
@@ -112,10 +108,6 @@ gulp.task('clean:js:background', function(done) {
   del([paths.dest.background], done);
 });
 
-gulp.task('clean:js:contentScript', function(done) {
-  del([paths.dest.contentScript], done);
-});
-
 gulp.task('js', ['clean:js']);
 
 gulp.task('js:background', ['clean:js:background'], function() {
@@ -134,23 +126,7 @@ gulp.task('js:background', ['clean:js:background'], function() {
   .pipe(gulp.dest(paths.dest.js));
 });
 
-gulp.task('js:contentScript', ['clean:js:contentScript'], function() {
-  return browserify({
-    entries: paths.src.contentScript,
-    extensions: ['.js'],
-    debug: true
-  })
-  .transform(babelify.configure({
-    optional: ["es7.objectRestSpread"]
-  }))
-  .bundle()
-  .pipe(source('contentScript.js'))
-  // .pipe(buffer())
-  // .pipe(uglify())
-  .pipe(gulp.dest(paths.dest.js));
-});
-
-gulp.task('js:modules', ['js:background', 'js:contentScript'], function() {});
+gulp.task('js:modules', ['js:background'], function() {});
 
 
 /********************
@@ -176,7 +152,6 @@ gulp.task('watch', ['build'], function() {
     gulp.watch(paths.src.html, ['html']);
     gulp.watch(paths.src.img, ['img']);
     gulp.watch(paths.src.background, ['js:background']);
-    gulp.watch(paths.src.contentScript, ['js:contentScript']);
     gulp.watch(paths.src.modules, ['js:modules']);
     gulp.watch(paths.src.manifest, ['manifest']);
 });
@@ -186,6 +161,6 @@ gulp.task('watch', ['build'], function() {
 ******* BUILD *******
 ********************/
 
-gulp.task('build', ['js:background', 'js:contentScript', 'img', 'html', 'css', 'manifest']);
+gulp.task('build', ['js:background', 'img', 'html', 'css', 'manifest']);
 
 gulp.task('default', ['build']);

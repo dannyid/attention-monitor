@@ -17,9 +17,11 @@ function getTabUrl(tabId) {
   return deferred.promise
 }
 
-function incrementTimeSpent(url) {
-  chrome.storage.local.get(url, data => {
-    chrome.storage.local.set({[url]: (data[url] || 0) + 1})
+function incrementTimeSpent(domain) {
+  chrome.storage.local.get(domain, data => {
+    chrome.storage.local.set({
+      [url]: (data[url] || 0) + 1
+    })
   })
 }
 

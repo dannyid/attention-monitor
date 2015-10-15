@@ -1,7 +1,7 @@
 import urlLib from 'url';
 import Q from 'q';
 
-function getActiveTabId() {
+function getFocusedTabId() {
   const deferred = Q.defer();
   chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     deferred.resolve(tabs[0].id);
@@ -28,7 +28,7 @@ function incrementTimeSpent(domain) {
 function logBrowsingTime() {
   chrome.windows.getCurrent(window => {
     if (window.focused) {
-      getActiveTabId()
+      getFocusedTabId()
       .then(getTabUrl)
       .then(incrementTimeSpent)
     }

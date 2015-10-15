@@ -19,9 +19,7 @@ function getTabUrl(tabId) {
 
 function incrementTimeSpent(url) {
   chrome.storage.local.get(url, data => {
-    Object.keys(data).length === 0 ?
-    chrome.storage.local.set({[url]: 1}) :
-    chrome.storage.local.set({[url]: data[url] + 1})
+    chrome.storage.local.set({[url]: (data[url] || 0) + 1})
   })
 }
 

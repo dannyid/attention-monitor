@@ -18,9 +18,9 @@ function getTabUrl(tabId) {
 }
 
 function incrementTimeSpent(domain) {
-  chrome.storage.local.get(domain, data => {
+  chrome.storage.local.get(domain, timeSpent => {
     chrome.storage.local.set({
-      [url]: (data[url] || 0) + 1
+      [url]: (timeSpent[url] || 0) + 1
     })
   })
 }
@@ -36,8 +36,8 @@ function logBrowsingTime() {
 }
 
 // Log extension install date to calculate start time of data collection
-chrome.storage.sync.get('startTime', data => {
-  if (Object.keys(data).length === 0) {
+chrome.storage.sync.get('startTime', startTime => {
+  if (Object.keys(startTime).length === 0) {
     chrome.storage.sync.set({startTime: new Date().getTime()})
   }
 });

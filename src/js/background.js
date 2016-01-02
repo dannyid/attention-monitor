@@ -39,25 +39,24 @@ window.AttentionMonitor = (function createApp() {
 
   function getOrderedList(length) {
     chrome.storage.local.get(e => {
-      var sortedData = Object.keys(e).map(key => {
+      Object.keys(e)
+      .map(key => {
         return [
           key,
           e[key]
         ];
-      }).sort((a, b) => {
+      })
+      .sort((a, b) => {
         return b[1] - a[1];
-      }).map((e, i) => {
-        return {
-          [e[0]]: e[1]
-        };
-      }).filter((e, i) => {
+      })
+      .filter((e, i) => {
         if (i < length) {
-          console.log(e);
+          console.log({
+            [e[0]]: e[1]
+          });
           return true;
         }
       });
-
-      // console.log(sortedData);
     });
   }
 
